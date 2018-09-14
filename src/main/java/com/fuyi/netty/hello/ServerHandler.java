@@ -27,7 +27,7 @@ public class ServerHandler extends ChannelHandlerAdapter {
 			// 响应Client
 			//ctx.channel().writeAndFlush(Unpooled.copiedBuffer("pong".getBytes()));
 		} else if (msg instanceof String) {
-			System.out.println("Server 收到  Client的消息：" + msg.toString());
+			System.out.println("Server 收到  Client 的消息：" + msg.toString());
 			
 			//ctx.channel().writeAndFlush("pong");
 		}
@@ -36,6 +36,11 @@ public class ServerHandler extends ChannelHandlerAdapter {
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		System.out.println("Server channelReadComplete");
+	}
+	
+	@Override
+	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+		System.out.println("userEventTriggered...");
 	}
 	
 }

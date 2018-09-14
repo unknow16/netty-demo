@@ -1,5 +1,7 @@
 package com.fuyi.netty.hello;
 
+import java.util.concurrent.TimeUnit;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -21,7 +23,7 @@ public class ClientHandler extends ChannelHandlerAdapter {
 		//channelFuture.channel().writeAndFlush(sb.toString());
 				
 		
-		byte[] req = ("In this chapter you general, &&__we recommend Java Concurrency in Practice by Brian Goetz. His book w"
+		/*byte[] req = ("In this chapter you general, &&__we recommend Java Concurrency in Practice by Brian Goetz. His book w"
                 + "ill give We’ve reached an exciting point—in the next chapter we’ll discuss bootstrapping, the process "
                 + "of configuring and connecting all of Netty’s components to bring your learned about threading models in ge"
                 + "neral and Netty’s threading model in particular, whose performance and consistency advantages we discuss"
@@ -34,12 +36,21 @@ public class ClientHandler extends ChannelHandlerAdapter {
                 + "sdsa ddasd asdsadas dsadasdas" + System.getProperty("line.separator")).getBytes();
 		
 		ctx.channel().writeAndFlush(Unpooled.copiedBuffer(req));
-		ctx.channel().writeAndFlush(Unpooled.copiedBuffer(req));
+		ctx.channel().writeAndFlush(Unpooled.copiedBuffer(req));*/
 		
 /*		byte[] req = ("BazingaLyncc is learner").getBytes();
 		for(int i=0; i<100; i++) {
 			ctx.channel().writeAndFlush(Unpooled.copiedBuffer(req));
 		}*/
+		
+		String req = "ping";
+		
+		Thread.sleep(4000);
+		ctx.channel().writeAndFlush(req);
+		Thread.sleep(4000);
+		ctx.channel().writeAndFlush(req);
+		Thread.sleep(4000);
+		ctx.channel().writeAndFlush(req);
 	}
 	
 	@Override

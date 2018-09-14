@@ -24,8 +24,8 @@ public class Client {
 				@Override
 				protected void initChannel(SocketChannel ch) throws Exception {
 					ChannelPipeline pipeline = ch.pipeline();
-					//pipeline.addLast("decoder", new StringDecoder());
-					//pipeline.addLast("encoder", new StringEncoder());
+					pipeline.addLast("decoder", new StringDecoder());
+					pipeline.addLast("encoder", new StringEncoder());
 					pipeline.addLast(new ClientHandler());
 					//pipeline.addLast(new ClientSimpleHandler());
 				}

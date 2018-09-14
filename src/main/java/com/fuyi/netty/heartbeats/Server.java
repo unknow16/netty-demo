@@ -1,7 +1,6 @@
-package com.fuyi.netty.hello;
+package com.fuyi.netty.heartbeats;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -10,9 +9,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.FixedLengthFrameDecoder;
-import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
@@ -27,8 +23,6 @@ public class Server {
 		serverBootstrap.group(parentGroup, childGroup)
 			.channel(NioServerSocketChannel.class)
 			.option(ChannelOption.SO_BACKLOG, 512)
-			//.option(ChannelOption.SO_SNDBUF, 512)
-			//.option(ChannelOption.SO_RCVBUF, 512)
 			.option(ChannelOption.SO_KEEPALIVE, true)
 			.childHandler(new ChannelInitializer<SocketChannel>() {
 
@@ -39,10 +33,7 @@ public class Server {
 					pipeline.addLast(new IdleStateHandler(5, 0, 0));
 					pipeline.addLast("decoder", new StringDecoder());
 					pipeline.addLast("encoder", new StringEncoder());
-					//pipeline.addLast(new LineBasedFrameDecoder(1024));
-					//pipeline.addLast(new FixedLengthFrameDecoder(23));
-					//pipeline.addLast(new DelimiterBasedFrameDecoder(1024, Unpooled.copiedBuffer("&&__".getBytes())));
-					pipeline.addLast(new ServerHandler());
+					pipeline.addLast(new HeartBeatServerHandler());
 				}
 			});
 		
